@@ -45,26 +45,44 @@ function encriptar () {
     });
 }
 
-function desencriptar () {
-    let mensajeEncriptado = document.getElementById("resultado").value;
-    let mensaje = mensajeEncriptado
-    .replaceAll("enter", "e")
-    .replaceAll("imes", "i")
-    .replaceAll("ober", "o")
-    .replaceAll("ai", "a")
-    .replaceAll("ufat", "u")
+let desencriptado = false; // variable de bandera
 
-    const resultadoDesencriptado = document.createElement('textarea');
-    resultadoDesencriptado.setAttribute('class', 'form-control mt-3');
-    resultadoDesencriptado.setAttribute('id', 'resultadoDesencriptado');
-    resultadoDesencriptado.setAttribute('rows', '5');
-    resultadoDesencriptado.setAttribute('placeholder', 'Mensaje Desencriptado');
-    resultadoDesencriptado.textContent = mensaje;
-    
+function desencriptar () {
+    // verificar si ya se desencriptó el mensaje
+    if (desencriptado) {
+        alert("El mensaje ya ha sido desencriptado.");
+        return;
+    }
+    let mensajeEncriptado = resultado.value;
+    let mensajeDesencriptado = mensajeEncriptado
+        .replaceAll("enter", "e")
+        .replaceAll("imes", "i")
+        .replaceAll("ober", "o")
+        .replaceAll("ai", "a")
+        .replaceAll("ufat", "u");
+
     const contenedor = document.querySelector('.contenedor2');
+    const resultadoDesencriptado = document.createElement('textarea');
+    resultadoDesencriptado.setAttribute('id', 'resultadoDesencriptado');
+    resultadoDesencriptado.setAttribute('class', 'form-control mb-3');
+    resultadoDesencriptado.textContent = mensajeDesencriptado;
+    resultadoDesencriptado.setAttribute('readonly', '');
+
+    const copiarDesencriptado = document.createElement('button');
+    copiarDesencriptado.setAttribute('class', 'mb-3 btn btn-outline-primary boton1');
+    copiarDesencriptado.textContent = 'Copiar Desencriptado';
+    copiarDesencriptado.addEventListener('click', function() {
+        resultadoDesencriptado.select();
+        document.execCommand('copy');
+        copiarDesencriptado.textContent = 'Copiado!';
+    });
+
     contenedor.appendChild(resultadoDesencriptado);
-    
+    contenedor.appendChild(copiarDesencriptado);
+    desencriptado = true; // actualizar variable de bandera
 }
+
+
 
 
 
